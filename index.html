@@ -72,118 +72,153 @@
 }
 }
 
-            /* ---------- Nav ---------- */
+          /* ==========================================
+   RESET & CLEAN NAVIGATION
+   ========================================== */
 nav {
-    position: -webkit-sticky !important; /* Forces support across Apple engines */
-    position: sticky !important;         /* Hard-anchors the bar to the glass frame */
-    top: 0 !important;                   /* Pins the sticky tracking to the absolute top threshold */
+    position: fixed !important;
+    top: 0;
     left: 0;
     width: 100%;
-    z-index: 99999 !important;           /* Holds layer level firmly above text & image masks */
-    background: #f7f3e9 !important;      /* Solid cream block protects readability during movement */
+    z-index: 99999 !important;
+    background: #f7f3e9;
     backdrop-filter: blur(6px);
     border-bottom: 1px solid transparent;
     transition: border-color .3s ease, box-shadow .3s ease;
 }
 
+nav.scrolled {
+    border-bottom-color: var(--line);
+    box-shadow: 0 4px 16px rgba(58,58,50,0.06);
+}
 
-            nav.scrolled {
-                border-bottom-color: var(--line);
-                box-shadow: 0 4px 16px rgba(58,58,50,0.06);
-            }
+.nav-inner {
+    max-width: var(--max);
+    margin: 0 auto;
+    padding: 14px 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
 
-            .nav-inner {
-                max-width: var(--max);
-		background: #f7f3e9 !important; /* Solid background blocks out the underlying logo */
-                margin: 0 auto;
-                padding: 14px 28px;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                position: relative;
+.nav-links {
+    display: flex;
+    gap: 26px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: auto;
+    position: static;
+    background: transparent;
+}
 
-            }
+.nav-links a {
+    text-decoration: none;
+    font-size: 15px;
+    letter-spacing: 0.04em;
+    color: var(--sage-dark);
+    border-bottom: 1px solid transparent;
+    padding-bottom: 2px;
+    transition: border-color .2s ease;
+}
 
-            .nav-links {
-		position: absolute;
-    		top: 100%;
-                display: flex;
-                gap: 26px;
-		background: #f7f3e9;
-		z-index: 9999 !important;
-                list-style: none;
-                margin: 0;
-                padding: 0;
-                flex-wrap: wrap;
-                justify-content: center;
-            }
+.nav-links a:hover {
+    border-color: var(--sage);
+}
 
-            .nav-links a {
-                text-decoration: none;
-                font-size: 15px;
-                letter-spacing: 0.04em;
-                color: var(--sage-dark);
-                border-bottom: 1px solid transparent;
-                padding-bottom: 2px;
-                transition: border-color .2s ease;
-            }
+.nav-toggle {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 26px;
+    color: var(--sage-dark);
+    cursor: pointer;
+    position: absolute;
+    right: 28px;
+    top: 50%;
+    transform: translateY(-50%);
+}
 
-            .nav-links a:hover {
-                border-color: var(--sage);
-            }
+/* Base Body Spacer: Keeps layout from sliding under the fixed header bar */
+body {
+    padding-top: 65px !important;
+}
 
-            .nav-toggle {
-                display: none;
-                background: none;
-                border: none;
-                font-size: 26px;
-                color: var(--sage-dark);
-                cursor: pointer;
-                position: absolute;
-                right: 28px;
-                top: 50%;
-                transform: translateY(-50%);
-            }
+/* ==========================================
+   CLEAN & UNIFIED BOTTOM CARDS (DESKTOP)
+   ========================================== */
+.cards .card:nth-child(3),
+.card.flower-boy-card {
+    grid-column: 1 / -1;
+    justify-self: center;
+    width: 435px !important;
+    max-width: 100%;
+    box-sizing: border-box;
+}
 
-            @media (max-width: 720px) {
-                .nav-inner {
-                    justify-content:flex-start;
-                }
+.card.flower-boy-card h3.flanked,
+.card.flower-boy-card h4 {
+    white-space: nowrap; /* Protects layout text lines on desktop monitors */
+}
 
-                .nav-links {
-                    position: absolute;
-                    top: 100%;
-                    left: 0;
-                    right: 0;
-                    background: var(--cream);
-                    flex-direction: column;
-                    gap: 0;
-                    max-height: 0;
-                    overflow: hidden;
-                    transition: max-height .3s ease;
-                    border-bottom: 1px solid var(--line);
-                }
 
-                .nav-links.open {
-                    max-height: 360px;
-                }
+/* ==========================================
+   MOBILE MEDIA ISOLATION (720px AND UNDER)
+   ========================================== */
+@media (max-width: 720px) {
+    /* Mobile Menu Box Overrides */
+    .nav-inner {
+        justify-content: flex-start;
+    }
 
-                .nav-links li {
-                    width: 100%;
-                }
+    .nav-links {
+        position: absolute !important;
+        top: 100% !important;
+        left: 0 !important;
+        right: 0 !important;
+        background: #f7f3e9 !important; /* Solid block color hides background layers cleanly */
+        z-index: 99999 !important;
+        flex-direction: column !important;
+        gap: 0 !important;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height .3s ease;
+        border-bottom: 1px solid var(--line);
+        width: 100% !important;
+    }
 
-                .nav-links a {
-                    display: block;
-                    padding: 14px 28px;
-                    border-bottom: 1px solid var(--line);
-                }
+    .nav-links.open {
+        max-height: 450px !important; /* Plenty of vertical room for all navigation links */
+    }
 
-                .nav-toggle {
-                    display: block;
-                }
+    .nav-links li {
+        width: 100%;
+    }
 
-            }
+    .nav-links a {
+        display: block;
+        padding: 14px 28px;
+        border-bottom: 1px solid var(--line);
+    }
 
+    .nav-toggle {
+        display: block;
+    }
+
+    /* Mobile Wedding Party Safety Overrides */
+    .cards .card:nth-child(3),
+    .card.flower-boy-card {
+        width: 100% !important; /* Keeps container layout boxed fluidly within phone screen edges */
+    }
+
+    .card.flower-boy-card h4 {
+        white-space: normal !important; /* Wraps the names safely vertically to break right-side shifting */
+        text-align: center;
+    }
+}
 
             /* ---------- Hero ---------- */
             .hero {
@@ -660,11 +695,15 @@ section {
     grid-template-columns: 1fr 1fr;
 }
 
+
 .cards.cards-3 .card:nth-child(3) {
     grid-column: 1 / -1;
-    width: 45%;
     justify-self: center;
+    width: 435px !important; /* Locks both boxes to the exact same size on desktop */
+    max-width: 100%;         /* Allows them to shrink safely on mobile phones */
+    box-sizing: border-box;  /* Prevents padding from breaking the width calculation */
 }
+
 
             .card {
                 border: 1px solid var(--line);
@@ -947,6 +986,8 @@ section {
                 background: var(--rose);
                 color: #fff;
             }
+
+
         </style>
     </head>
     <body>
