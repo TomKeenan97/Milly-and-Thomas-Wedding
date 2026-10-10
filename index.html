@@ -159,10 +159,6 @@ body {
     box-sizing: border-box;
 }
 
-.card.flower-boy-card h3.flanked,
-.card.flower-boy-card h4 {
-    white-space: nowrap; /* Protects layout text lines on desktop monitors */
-}
 
 
 /* ==========================================
@@ -784,24 +780,7 @@ section {
                     width: 100%;
                 }
             }
-/* 1. FORCE BOTH BOTTOM BOXES TO BE THE EXACT SAME STABLE WIDTH */
-.cards .card:nth-child(3),
-.card.flower-boy-card {
-    grid-column: 1 / -1;
-    justify-self: center;
-    width: 435px !important; /* Locks both boxes to the exact same size on desktop */
-    max-width: 100%;         /* Allows them to shrink safely on mobile phones */
-    box-sizing: border-box;  /* Prevents padding from breaking the width calculation */
-}
 
-/* 2. PROTECT THE TEXT INSIDE THE FLOWER BOY CARD WHEN ZOOMING */
-.card.flower-boy-card h3.flanked {
-    white-space: nowrap;     /* Keeps "Flower Boy" and icons on a single line */
-}
-
-.card.flower-boy-card h4 {
-    white-space: nowrap;     /* Forces "Lucas Kirkham/Tobias Kirkham" to stay on one line */
-}
             /* ---------- Wedding breakfast menu ---------- */
             .menu-card {
                 max-width: 580px;
@@ -987,7 +966,33 @@ section {
                 color: #fff;
             }
 
+/* ==========================================================
+   MOBILE VIEWPORT EMERGENCY ALIGNMENT RESET
+   ========================================================== */
+@media (max-width: 720px) {
+    /* 1. Pulls the entire grid container back into the screen margins */
+    .cards {
+        display: block !important;       /* Temporarily drops the grid to remove row shifting */
+        width: 100% !important;          /* Fits the container layout tight to the edges */
+        max-width: 100% !important;
+        left: 0 !important;              /* Kills any active left-shunting calculations */
+        right: 0 !important;
+        margin: 0 auto !important;       /* Hard-centers the block in the middle of the phone */
+        transform: none !important;      /* Destroys any shifting translations */
+        padding: 0 15px !important;      /* Adds safe padding inside the screen edges */
+        box-sizing: border-box !important;
+    }
 
+    /* 2. Forces every individual card in the list to stack perfectly straight */
+    .cards .card {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin-bottom: 20px !important;  /* Creates simple vertical gaps between sections */
+        left: 0 !important;
+        transform: none !important;
+        box-sizing: border-box !important;
+    }
+}
         </style>
     </head>
     <body>
